@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
 
 @Component({
   selector: 'page-home',
@@ -9,11 +10,15 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class HomePage {
 
-  imageData: String;
+  image: string = '';
+  files: string[] = [];
+  counter = 0;
 
   constructor(
     public navCtrl: NavController,
-    private camera: Camera
+    private camera: Camera,
+    private file:File,
+    private zone:NgZone
   ) {}
 
   onCamera() {
@@ -24,9 +29,34 @@ export class HomePage {
       targetHeight: 800,
     }
     this.camera.getPicture(options).then((imageData) => {
-      console.log(imageData);
-      this.imageData = imageData;
-      //this.imageData = 'data:image/jpeg;base64,' + imageData;
+      this.file.resolveLocalFilesystemUrl(imageData).then((tmpFile) => {
+       this.file.resolveDirectoryUrl(this.file.dataDirectory).then((dataDir) => {
+         tmpFile.copyTo(dataDir, ++this.counter + tmpFile.name, 
+           (entry) => {
+             this.zone.run(() => {this.image = entry.nativeURL});
+           },
+           () => {console.log('stat')}
+         );
+       })
+      });
+    });
+  }
+
+  onFileList() {
+    this.file.listDir(this.file.dataDirectory, '').then((entries) => {
+      this.files.length = 0;
+      entries.forEach((entry) => {
+        this.files.push(entry.name);
+      });
+    });
+  }
+
+  onFileClear() {
+    this.file.listDir(this.file.dataDirectory, '').then((entries) => {
+      entries.forEach((entry) => {
+        entry.remove(() => { console.log('Removed' + entry.name) });
+      });
+      this.onFileList();
     });
   }
 

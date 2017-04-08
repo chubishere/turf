@@ -89,24 +89,24 @@ export class Message {
     optInText?: string = 'Reply';
 
     /**
+     * Id of the activity the reply shows
+     */
+    activityId?: number;
+
+    /**
      * IDs of response Messages
      */
-    _responseMessageIds?: string[] = [];
+    private _responseMessageIds: string[] = [];
 
     /**
      * ID of message this message replies to
      */
-    _promptMessageId?: string;
+    private _promptMessageId: string;
 
     /**
      * User can decide to archive a message
      */
-    _archived: boolean = false;
-
-    /**
-     * Id of the activity the reply shows
-     */
-    activityId?: number;
+    private _isArchived: boolean = false;
 
     constructor( data?: MessageData ) {
         this.dateCreated = '2017-03-30';
@@ -127,18 +127,22 @@ export class Message {
     }
 
     get hasPrompt(): boolean {
-        return Messages.get().filterBy('id', this._promptMessageId).length > 0;
+        return !!this._promptMessageId;
     }
 
     get prompt(): Message {
         return Messages.get().filterBy('id', this._promptMessageId)[0];
     }
 
+    set prompt(message: Message) {
+        this._promptMessageId = message.id;
+    }
+
     reply(reply:Message) {
         this._responseMessageIds.push(reply.id);
-        this._archived = true;
-        reply._promptMessageId = this.id;
-        reply._archived = true;
+        this.archive();
+        reply.prompt = this;
+        reply.archive();
         Messages.add(reply);
         return;
         //LocalNotifications.schedule({
@@ -158,11 +162,15 @@ export class Message {
     }
 
     dismiss() {
-        this._archived = true;
+        this._isArchived = true;
     }
 
-    get archived() {
-        return this._archived;
+    get isArchived() {
+        return this._isArchived;
+    }
+
+    archive() {
+        this._isArchived = true;
     }
 }
 

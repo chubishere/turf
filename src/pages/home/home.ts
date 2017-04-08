@@ -1,8 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-//import { Camera, CameraOptions } from '@ionic-native/camera';
-//import { File } from '@ionic-native/file';
 //import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
 import { Message, Messages, MessageResponseRequired } from '../../services/messages/message';
 import { MessageReplyPage } from '../message-reply/message-reply';
@@ -12,34 +10,31 @@ import { MessageReplyPage } from '../message-reply/message-reply';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  private data:{};
   required = MessageResponseRequired;
+  messages: Messages;
+  numMessages: Number;
 
   constructor(private navCtrl:NavController) {
   }
 
   ionViewWillEnter() {
+    this.update();
   }
 
-  ionViewDidLoad(){
-  }
-
-  messages() {
-    return Messages.get().filterBy('archived', false);
-  }
-
-  numMessages() {
-    let count = Messages.get().filterBy('archived', false).length();
-    return count;
+  update() {
+    this.messages = Messages.get().filterBy('isArchived', false);
+    this.numMessages = Messages.get().filterBy('isArchived', false).length();
   }
 
   onMessageReply(message:Message) {
     this.navCtrl.push(MessageReplyPage, {
       message: message
     });
+    this.update();
   }
 
   onMessageDismiss(message:Message) {
       message.dismiss();
+      this.update();
   }
 }

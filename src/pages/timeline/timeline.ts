@@ -15,12 +15,17 @@ export class TimelinePage {
   dateTimeFormat: string = Message.dateTimeFormat;
 
   constructor(public navCtrl: NavController) {
-    // If we navigated to this page, we will have an item available as a nav param
-    //this.selectedItem = navParams.get('item');
+  }
 
+  ionViewDidLoad(){
+  }
+
+  ionViewWillEnter() {
     this.messages = Messages.get()
-      .filterBy('archived', true)
+      .filterBy('hasPrompt', false)
+      .filterBy('isArchived', true)
       .sortBy('dateCreated', 'des');
+    console.log(Messages);
   }
 
 }

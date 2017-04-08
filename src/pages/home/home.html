@@ -10,7 +10,7 @@
 
   <div class="messages">
 
-    <div class="title" *ngIf="!numMessages()">
+    <div class="title" *ngIf="!numMessages">
       <br/>
       <br/>
       You've replied to all messages. Thanks!
@@ -22,7 +22,7 @@
       <img src="https://media.giphy.com/media/3oz8xB06mHyoGE7ZoQ/source.gif">
     </div>
 
-    <div *ngFor="let message of messages()">
+    <div *ngFor="let message of messages">
       <div class="message">
         <span class="content">
           <span class="user">{{message.user}}:</span><br/>

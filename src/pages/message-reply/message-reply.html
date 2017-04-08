@@ -6,5 +6,43 @@
 
 
 <ion-content>
-  {{this.message.content}}
+
+    <div class="message-reply">
+
+    <span *ngIf="!activity">
+      Whoops, we can't show this activity right now.
+      <br/><br/>
+      Please try again in a few minutes. If there's still a problem...
+      <button ion-button>Let us know</button>
+    </span>
+
+    <div *ngIf="activity">
+      <form>
+        <ion-item *ngFor="let field of activity.fields">
+
+          <div class="images" 
+            *ngIf="field.type === fieldType.Image"
+            (tap)="onImageChosen()"
+          >
+            <h2>Tap here a picture with your paprika dish!</h2>
+            <br/>
+              <img class="image" [src]="imageSrc"/>
+          </div>
+
+          <br/>
+          <br/>
+
+          <ion-textarea 
+            *ngIf="field.type === fieldType.Text"
+            placeholder="Type a few words here to explain what's up in the photo..."
+            name="replyText"
+            [(ngModel)]="replyText"
+          ></ion-textarea>
+
+        </ion-item>
+        <button ion-button class="button-full-width" (click)="onSend()">Send</button>
+      </form>
+    </div>
+  </div>
+
 </ion-content>

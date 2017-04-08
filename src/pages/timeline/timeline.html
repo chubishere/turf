@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Timeline
+    </ion-title>
+</ion-navbar>
+</ion-header>
+
+<ion-content class="timeline">
+
+  <p padding>
+    Study ends in 2 weeks (9 April 2017)
+  </p>
+
+  <div>
+    <p padding>
+      Coming up:
+    </p>
+
+    <div>
+      <div class="message">
+        <div class="content">
+          <span class="date">{{'2017-03-12T09:00' | date:dateTimeFormat}}</span>
+          &nbsp; New activity. More details at the time.
+        </div>
+      </div>
+
+      <div class="message">
+        <div class="content">
+          <span class="date">{{'2017-03-11T20:00' | date:dateTimeFormat}}</span>
+          &nbsp; Dinner task
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p padding>
+    History:
+  </p>
+
+  <div *ngFor="let message of messages" class="message">
+    <div class="content">
+      <span class="date">{{message.dateCreated | date:dateFormat}},</span>
+      <span class="user">{{message.user}}:</span>
+      <br/>
+      <span [innerHTML]="message.content"></span>
+    </div>
+    <div *ngIf="message.hasResponses" class="response" padding>
+      You responded:<br/>
+      <div *ngFor="let response of message.responses">
+        <span class="image"><img src="{{response.activityData.image}}"/></span>
+        <span class="text">{{response.activityData.text}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="message">
+    <div class="content">
+      <span class="date">{{'2017-03-09' | date:dateFormat}}</span>
+      You joined the study
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+
+</ion-content>

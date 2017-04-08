@@ -182,22 +182,22 @@ export class Messages {
     constructor(private messages: Message[]) {
     }
 
-//     /**
-//      * Sort messages by property 'prop'
-//      * 
-//      * @param {string} prop 
-//      * @param {string} direction 'asc'|'desc'
-//      */
-//     sortBy(prop: string, direction: 'asc'|'des' = 'asc') {
-//         let d = (direction === 'des')? -1: 1;
-//         let sorted = this.messages.slice().sort((a, b) => {
-//             if(a[prop] == b[prop]) {
-//                 return 0;
-//             }
-//             return (a[prop] > b[prop])? 1 * d : -1 * d;
-//         });
-//         return new Messages( sorted );
-//     }
+    /**
+     * Sort messages by property 'prop'
+     * 
+     * @param {string} prop 
+     * @param {string} direction 'asc'|'desc'
+     */
+    sortBy(prop: string, direction: 'asc'|'des' = 'asc') {
+        let d = (direction === 'des')? -1: 1;
+        let sorted = this.messages.slice().sort((a, b) => {
+            if(a[prop] == b[prop]) {
+                return 0;
+            }
+            return (a[prop] > b[prop])? 1 * d : -1 * d;
+        });
+        return new Messages( sorted );
+    }
 
     /**
      * Filter messages for message.prop == value

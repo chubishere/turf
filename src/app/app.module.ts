@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
+import { TimelinePage } from '../pages/timeline/timeline';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -17,7 +17,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    TimelinePage,
     ContactPage,
     HomePage,
     TabsPage,
@@ -29,7 +29,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
+    TimelinePage,
     ContactPage,
     HomePage,
     TabsPage,

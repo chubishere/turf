@@ -4,7 +4,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser/index';
 import { NavController, NavParams } from 'ionic-angular';
 import { Camera, File } from 'ionic-native';
 
-//import { Activities, Activity, ActivityFieldType } from '../../services/activities'
+import { Activities, Activity, ActivityFieldType } from '../../services/activities/activity';
 import { Message } from '../../services/messages/message';
 
 @Component({
@@ -12,9 +12,9 @@ import { Message } from '../../services/messages/message';
 })
 export class MessageReplyPage {
   message: Message;
-  //activity: Activity;
+  activity: Activity;
   replyText: string;
-  //fieldType = ActivityFieldType;
+  fieldType = ActivityFieldType;
   data = {};
 
   // the Rock sandwich selfie
@@ -29,9 +29,9 @@ export class MessageReplyPage {
   ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.message = navParams.get('message');
-    //if (typeof this.message.activityId === 'number') {
-    //  this.activity = Activities.get( this.message.activityId );
-    //}
+    if (typeof this.message.activityId === 'number') {
+     this.activity = Activities.get( this.message.activityId );
+    }
   }
 
   ionViewWillEnter() {
@@ -44,14 +44,14 @@ export class MessageReplyPage {
   }
 
   onSend() {
-    // let data = {
-    //   user: 'me',
-    //   activityData: {
-    //     text: this.replyText,
-    //     image: this.imageBase64
-    //   }
-    // };
-    // this.message.reply(new Message(data));
-    // this.navCtrl.pop();
+    let data = {
+      user: 'me',
+      activityData: {
+        text: this.replyText,
+        image: this.imageBase64
+      }
+    };
+    this.message.reply(new Message(data));
+    this.navCtrl.pop();
   }
 }

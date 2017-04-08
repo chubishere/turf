@@ -1,0 +1,30 @@
+.message-reply {
+
+    .title {
+        display: block;
+        margin-bottom: 0.2rem;
+    }
+
+    .images {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .image {
+        display: block;
+        background-size: cover;
+        width: 100%;
+        height: auto;
+        margin-right: 5%;
+
+        &.selected {
+            opacity: 1;
+        }
+
+        &:last-child {
+            margin-right: 0; 
+        }
+    }
+
+}

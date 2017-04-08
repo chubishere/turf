@@ -14,3 +14,82 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.dau ion-app{
+    font-weight: 300;
+    font-size: 1.6rem;
+
+    .scroll-content{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .toolbar {
+        min-height: 40px;
+
+        button {
+            background: transparent;
+        }
+    }
+
+    .toolbar-title {
+        font-size: 1.5rem;
+        font-weight: 300;
+    }
+
+    .text-input {
+        border: 1px solid #ddd;
+        border-left: none;
+        border-right: none;
+        margin: 0;
+        width: 100%;
+        padding: 16px 8px;
+    }
+
+    .item.item-textarea {
+        padding-left: 0;
+
+        .item-inner {
+            padding: 0;
+            border-bottom: 0;
+        }
+    }
+
+    .button-full-width {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 2.5rem;
+    }
+}
+
+.message {
+    box-shadow: 0 0 1px #888;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    line-height: 1.4;
+
+    .content {
+        flex: 1 1 100%;
+        margin-bottom: 0.2rem;
+        padding: 1rem 1rem;
+    }
+
+    .actions {
+        display: flex;
+        width: 100%;
+    }
+
+    .action {
+        border-top: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        flex: 1 1 100%;
+        padding: 1rem;
+        text-align: center;
+
+        &:last-child{
+            border-right: none;
+        }
+    }
+}

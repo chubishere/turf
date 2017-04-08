@@ -5,17 +5,55 @@
 </ion-header>
 
 <ion-content padding>
-  <h2 (click)="onCamera()">Camera</h2>
-    <ion-img [src]="image" width="100" height="100"></ion-img>
-  <br/>
-  <br/>
-  <h2>File</h2>
-  <p *ngFor="let file of files">{{file}}</p>
-  <button ion-button (click)="onFileList()">List files</button>
-  <button ion-button (click)="onFileClear()">Clear files</button>
-  <br/>
-  <br/>
-  <h2>Local notification</h2>
-  <p *ngIf="notificationClicked">You clicked a Notification!</p>
-  <button ion-button (click)="onLocalNotify()">Notify in {{notificationCountdown}}...</button>
+
+  <h3>Guten morgen, Esteban!</h3>
+
+  <div class="messages">
+
+    <div class="title" *ngIf="!numMessages()">
+      <br/>
+      <br/>
+      You've replied to all messages. Thanks!
+      <br/>
+      <br/>
+      The next activities are coming up around dinner time. See you then :)
+      <br/>
+      <br/>
+      <img src="https://media.giphy.com/media/3oz8xB06mHyoGE7ZoQ/source.gif">
+    </div>
+
+    <div *ngFor="let message of messages()">
+      <div class="message">
+        <span class="content">
+          <span class="user">{{message.user}}:</span><br/>
+          <span [innerHtml]="message.content"></span>
+        </span>
+        <span class="reference" [color]="'primary'" *ngIf="message.reference">About {{message.reference}}</span>
+
+        <div class="actions">
+          <span class="action" 
+            *ngIf="message.requiresResponse === required.OPTIONAL"
+            [color]="'primary'"
+            (click)="onMessageDismiss(message)"
+          >{{message.optOutText}}</span>
+        
+          <span class="action" 
+            *ngIf="message.requiresResponse === required.YES 
+              || message.requiresResponse === required.OPTIONAL"
+            [color]="'primary'"
+            (click)="onMessageReply(message)"
+          >{{message.optInText}}</span>
+
+          <span class="action" 
+            *ngIf="message.requiresResponse === required.NO"
+            [color]="'primary'"
+            (click)="onMessageDismiss(message)"
+          >{{message.archiveText}}</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </ion-content>
